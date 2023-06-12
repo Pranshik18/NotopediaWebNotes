@@ -1,6 +1,12 @@
 import moment from "moment";
 import React, { useState } from "react";
 import "../components/Homepage.css";
+import Card from "./Card";
+import ModelCreate from "./ModelCreate";
+import ModalEdit from "./ModalEdit";
+import ModalView from "./ModalView";
+import Navbar from "./Navbar";
+import SortBy from "./SortBy";
 
 function HomePage() {
   const [openModal, setOpenModal] = useState(false);
@@ -9,11 +15,10 @@ function HomePage() {
   const [body, setBody] = useState("");
   const [allNotesArray, setAllNotesArray] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [open, setSearchOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [viewModal, setViewModal] = useState("");
-
+  // Handling the modal opening and closing
   const handleButtonClick = () => {
     setOpenModal(true);
   };
@@ -32,39 +37,32 @@ function HomePage() {
   };
 
   const handleViewModalClose = () => {
-    setViewModal(false)
+    setViewModal(false);
     setTitle("");
     setBody("");
-  }
-
-  function truncateText(text, maxLength) {
-    if (text.length > maxLength) {
-      return text.slice(0, maxLength) + "...";
-    } else {
-      return text;
-    }
-  }
-
+  };
+  //Handle edit function when the user clicks on edit button
   const handleEdit = (index) => {
     setEditIndex(index);
     setTitle(allNotesArray[index].title);
     setBody(allNotesArray[index].body);
     setEditModalOpen(true);
   };
+  //Handle view whenever the user is going to see their note and description
   const handleView = (index) => {
     setTitle(allNotesArray[index].title);
     setBody(allNotesArray[index].body);
-    setViewModal(true)
-  }
-
+    setViewModal(true);
+  };
+  //Handle delete whenever user is going to delete the note
   const handleDelete = (index) => {
     setAllNotesArray(allNotesArray.filter((_, ind) => ind !== index));
   };
-
+  //Handling the filtering logic
   const filteredNotes = allNotesArray.filter((note) =>
     note.title.toLowerCase().includes(searchText.toLowerCase())
   );
-
+  //Handling the sorting by date modified or date created or by title
   const sortedNotes = filteredNotes.sort((a, b) => {
     if (sortBy === "title") {
       return a.title.localeCompare(b.title);
@@ -73,12 +71,12 @@ function HomePage() {
         moment(b.dateCreated, "DD-MM-YYYY HH:mm:ss")
       );
     } else if (sortBy === "dateModified") {
-      return moment(a.timeCreated, "HH:mm:ss").diff(
-        moment(b.timeCreated, "HH:mm:ss")
+      return moment(b.timeCreated, "HH:mm:ss").diff(
+        moment(a.timeCreated, "HH:mm:ss")
       );
     }
-  }).reverse();
-
+  });
+  //Handle the submit logic to submit the note
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editIndex !== null) {
@@ -103,200 +101,72 @@ function HomePage() {
       handleModalClose();
     }
   };
-
   return (
     <div>
       <div className="main-container">
         <div className="content"></div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <div className="content">
-                <i class="fa-sharp fa-solid fa-pen-to-square noto_icon"></i>
-                <h1 className="heading">NotoPedia</h1>
-              </div>
-            </li>
-            <div></div>
-            {
-              <li className="search">
-                <div>
-                  <input
-                    type="text"
-                    className="search_input"
-                    placeholder="Search ..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                  />
-                  {searchText.length > 0 && (
-                    <i
-                      className="fa-solid fa-xmark close_search"
-                      onClick={(e) => setSearchText("")}
-                    ></i>
-                  )}
-                </div>
-              </li>
-            }
-            <li>
-              {searchText.length < 1 && (
-                <i
-                  className="fa-sharp fa-solid fa-magnifying-glass search_icon"
-                  onClick={(e) => setSearchOpen(true)}
-                ></i>
-              )}
-            </li>
-          </ul>
-        </nav>
+        {/* Navbar  */}
+        <Navbar
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       </div>
-      <div className="sort_contain">
-        <label className="sort_by">Sort by </label>
-        <i class="fa-solid fa-sort sort_icon"></i>
-        <select
-          className="dropdown"
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="none">None</option>
-          <option value="title">Title</option>
-          <option value="dateCreated">Date Created</option>
-          <option value="dateModified">Date Modified</option>
-        </select>
-      </div>
+      {/* Sorting filters  */}
+      <SortBy sortBy={sortBy} setSortBy={ setSortBy} />
       <div>
         <button className="fab" onClick={handleButtonClick}>
           <i className="fa-sharp fa-solid fa-plus fa-beat"></i>
         </button>
-
-        {openModal && (
+        {/* Modals Opening and closing according to states  */}
+        {openModal ? (
           <>
-            <div className="modal">
-              <div
-                className="overlay"
-                onClick={() => setOpenModal(!openModal)}
-              ></div>
-              <div className="modal-back">
-                <div className="modal-content">
-                  <span className="close" onClick={handleModalClose}></span>
-                  <form onSubmit={handleSubmit}>
-                    <h2 className="modal-heading">Add a new Note</h2>
-                    <input
-                      type="text"
-                      placeholder="Add Title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                    <textarea
-                      cols="30"
-                      rows="10"
-                      placeholder="Add Body"
-                      value={body}
-                      onChange={(e) => setBody(e.target.value)}
-                    ></textarea>
-                    <button type="submit">
-                      <span>Add Note</span>
-                      <i className="fa-sharp fa-solid fa-note-sticky cancel_icon"></i>
-                    </button>
-                    <button className="cancel" onClick={handleModalClose}>
-                      <span>Cancel</span>
-                      <i className="fa-solid fa-xmark cancel_icon"></i>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-        {editModalOpen && (
-          <div className="modal">
-            <div
-                className="overlay"
-                onClick={() => setEditModalOpen(!editModalOpen)}
-              ></div>
-            <div className="modal-content">
-              <span className="close" onClick={handleEditModalClose}></span>
-              <form onSubmit={handleSubmit}>
-                <h2 className="modal-heading">Update Note</h2>
-                <input
-                  type="text"
-                  placeholder="Add Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <textarea
-                  cols="30"
-                  rows="10"
-                  placeholder="Add Description"
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                ></textarea>
-                <button type="submit">
-                  <span>Update Note</span>
-                  <i className="fa-sharp fa-solid fa-note-sticky cancel_icon"></i>
-                </button>
-                <button className="cancel" onClick={handleEditModalClose}>
-                  <span>Cancel</span>
-                  <i className="fa-solid fa-xmark cancel_icon"></i>
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-        {
-          viewModal && (
-            <>
-            <div className="modal">
-              <div
-                className="overlay"
-                onClick={() => setViewModal(!viewModal)}
-              ></div>
-              <div className="modal-back">
-                <div className="modal-content">
-                  <span className="close" onClick={handleViewModalClose}></span>
-                  <form onSubmit={handleSubmit}>
-                    <h4 className="modal-heading">Your Added Note</h4>
-                      <h2>Title : {title}</h2>
-                      <h3>Body : {body}</h3>
-                    <button className="cancel" onClick={handleViewModalClose}>
-                      <span>Cancel</span>
-                      <i className="fa-solid fa-xmark cancel_icon"></i>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            </>
-          )
-        }
+            <ModelCreate
+              setOpenModal={setOpenModal}
+              title={title}
+              setTitle={setTitle}
+              body={body}
+              setBody={setBody}
+              handleSubmit={handleSubmit}
+              openModal={openModal}
+              handleModalClose={handleModalClose}
+            />
+          </>) : null}
+        {editModalOpen ? (
+          <ModalEdit
+            editModalOpen={editModalOpen}
+            title={title}
+            setTitle={setTitle}
+            setBody={setBody}
+            handleSubmit={handleSubmit}
+            body={body}
+            setEditModalOpen={setEditModalOpen}
+            handleEditModalClose={handleEditModalClose}
+          />) : null}
+        {viewModal ? (
+          <>
+            <ModalView
+              setViewModal={setViewModal}
+              viewModal={viewModal}
+              handleViewModalClose={handleViewModalClose}
+              handleSubmit={handleSubmit}
+              title={title}
+              body={body}
+            />
+          </>) : null}
       </div>
+      {/* Rendering the cards  */}
       <div className="card-Container">
         {sortedNotes.length > 0 ? (
-          sortedNotes.reverse().map((item, index) => {
+          sortedNotes.map((item, index) => {
             return (
-              <div className="card" key={index}>
-                <div className="container">
-                  <h4>
-                    <b>{truncateText(item.title, 15)}</b>
-                  </h4>
-                  <p className="p_card">{truncateText(item.body, 30)}</p>
-                  <div className="icons">
-                    <i
-                      className="fa-solid fa-pen-to-square edit_icon"
-                      onClick={(e) => handleEdit(index)}
-                    ></i>
-                    <i class="fa-solid fa-eye view_icon" onClick={(e)=> handleView(index)}></i>
-                    <i
-                      className="fa-solid fa-trash delete"
-                      onClick={(e) => handleDelete(index)}
-                    ></i>
-                    <div>
-                      <p className="time_date">Time: {item.timeCreated}</p>
-                      <p className="time_date">Date: {item.dateCreated}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })
-        ) : (
+              <Card
+                key={index}
+                item={item}
+                index={index}
+                handleEdit={handleEdit}
+                handleView={handleView}
+                handleDelete={handleDelete}
+              />)})) : (
           <div className="add_notes_heading ">
             <div class="container">
               <h2 class="title">
@@ -311,11 +181,9 @@ function HomePage() {
                 </button>
               </p>
             </div>
-          </div>
-        )}
+          </div>)}
       </div>
     </div>
   );
 }
-
 export default HomePage;

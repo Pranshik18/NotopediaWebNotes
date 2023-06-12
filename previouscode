@@ -1,0 +1,156 @@
+
+{/* import moment from "moment";
+import React, { useState } from "react";
+import "../components/Homepage.css";
+import { truncateText } from "../constants/Truncate";
+import ModalCreate from "./ModalCreate";
+import ModalView from "./ModalView";
+import ModalEdit from "./ModalEdit";
+
+function HomePage() {
+  const [openModal, setOpenModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [body, setBody] = useState("");
+  const [allNotesArray, setAllNotesArray] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [open, setSearchOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [sortBy, setSortBy] = useState("");
+  const [viewModal, setViewModal] = useState(false);
+
+  // Handling the modal opening and closing
+  const handleButtonClick = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+    setTitle("");
+    setBody("");
+  };
+
+  const handleEditModalClose = () => {
+    setEditIndex(null);
+    setTitle("");
+    setBody("");
+    setEditModalOpen(false);
+  };
+
+  const handleViewModalClose = () => {
+    setViewModal(false);
+    setTitle("");
+    setBody("");
+  };
+
+  // Handle edit function when the user clicks on edit button
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setTitle(allNotesArray[index].title);
+    setBody(allNotesArray[index].body);
+    setEditModalOpen(true);
+  };
+
+  // Handle view whenever the user is going to see their note and description
+  const handleView = (index) => {
+    setTitle(allNotesArray[index].title);
+    setBody(allNotesArray[index].body);
+    setViewModal(true);
+  };
+
+  // Handle delete whenever user is going to delete the note
+  const handleDelete = (index) => {
+    setAllNotesArray(allNotesArray.filter((_, ind) => ind !== index));
+  };
+
+  // Handling the filtering logic
+  const filteredNotes = allNotesArray.filter((note) =>
+    note.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+  // Handling the sorting by date modified or date created or by title
+  const sortedNotes = filteredNotes.sort((a, b) => {
+    if (sortBy === "title") {
+      return a.title.localeCompare(b.title);
+    } else if (sortBy === "dateCreated") {
+      return moment(a.dateCreated, "DD-MM-YYYY HH:mm:ss").diff(
+        moment(b.dateCreated, "DD-MM-YYYY HH:mm:ss")
+      );
+    } else if (sortBy === "dateModified") {
+      return moment(a.timeCreated, "HH:mm:ss").diff(
+        moment(b.timeCreated, "HH:mm:ss")
+      );
+    }
+  }).reverse();
+
+  // Handle the submit logic to submit the note
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editIndex !== null) {
+      const updatedNote = {
+        title: title,
+        body: body,
+        dateCreated: moment().format("DD-MM-YYYY"),
+        timeCreated: moment().format("HH:mm:ss"),
+      };
+      const updatedNotesArray = [...allNotesArray];
+      updatedNotesArray[editIndex] = updatedNote;
+      setAllNotesArray(updatedNotesArray);
+      handleEditModalClose();
+    } else {
+      const newUserNote = {
+        title: title,
+        body: body,
+        dateCreated: moment().format("DD-MM-YYYY"),
+        timeCreated: moment().format("HH:mm:ss"),
+      };
+      setAllNotesArray([...allNotesArray, newUserNote]);
+      handleModalClose();
+    }
+  };
+
+  const handleChange = (field) => (event) => {
+    if (field === "title") {
+      setTitle(event.target.value);
+    } else if (field === "body") {
+      setBody(event.target.value);
+    }
+  };
+
+  return (
+    <div>
+      {/* Rest of your code */}
+
+//       {openModal && (
+//         <ModalCreate
+//           title={title}
+//           body={body}
+//           handleSubmit={handleSubmit}
+//           handleClose={handleModalClose}
+//           handleChange={handleChange}
+//         />
+//       )}
+
+//       {editModalOpen && (
+//         <ModalEdit
+//           title={title}
+//           body={body}
+//           handleSubmit={handleSubmit}
+//           handleClose={handleEditModalClose}
+//           handleChange={handleChange}
+//         />
+//       )}
+
+//       {viewModal && (
+//         <ModalView
+//           title={title}
+//           body={body}
+//           handleClose={handleViewModalClose}
+//         />
+//       )}
+
+//       {/* Rest of your code */}
+//     </div>
+//   );
+// }
+
+// export default HomePage; */}

@@ -177,7 +177,7 @@ function HomePage() {
               </h2>
               <p className="button_p">
                 <button className="ui_plus_button">
-                  <i className="fa-sharp fa-solid fa-plus fa-beat"></i>
+                  <i className="fa-sharp fa-solid fa-plus fa-beat"></i> 
                 </button>
               </p>
             </div>

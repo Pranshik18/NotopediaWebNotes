@@ -1,48 +1,97 @@
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
 
-.navbar{
+.navbar {
   background-color: #3C81C5;
   margin: 0 auto;
-  
 }
 
-.sort_by{
+.sort_by {
   font-size: 20px;
+  color: black;
 }
-select{
+.content{
+  display: flex;
+}
+
+.noto_icon{
+  position: absolute;
+  top: 30px;
+  font-size: 38px;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+select {
   padding: 4px;
   border: 1px solid black;
   border-radius: 6px;
 }
-.sort_contain{
+
+.sort_contain {
   padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
-.search_icon{
+.search_icon {
   position: absolute;
   top: 35px;
-  right: 40px;
+  right: 5rem;
   font-size: 20px;
-  color: white;
+  color: black;
+  cursor: pointer;
 }
 
-.heading{
+.heading {
   margin: 0;
   padding-top: 30px;
   padding-bottom: 20px;
-  padding-left: 30px;
+  padding-left: 50px;
+  font-size: 30px;
   color: white;
 }
-
-.nav_description{
+.sort_icon{
+  padding: 10px;
+}
+.nav_description {
   padding-bottom: 20px;
   color: white;
 }
+
+.dropdown {
+  appearance: none;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+
+.dropdown:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown option {
+  background-color: #fff;
+  color: #333;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown option:hover {
+  background-color: #f1f1f1;
+}
+
 
 .fab {
   position: fixed;
@@ -57,8 +106,7 @@ select{
   font-size: 32px;
   border: none;
 }
-
-.modal{
+.modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +119,7 @@ select{
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content{
+.modal-content {
   padding: 20px;
   position: relative;
   width: 100%;
@@ -79,22 +127,24 @@ select{
   top: 10px;
   right: 10px;
   font-weight: bold;
+  background-color: white;
+  border-radius: 10px;
 }
 
-
-form{
+form {
   display: flex;
   flex-direction: column;
 }
 
-input,textarea{
+input,
+textarea {
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-button[type='submit']{
+button[type='submit'] {
   background-color: #4caf50;
   color: white;
   margin: 10px 0;
@@ -107,7 +157,7 @@ button[type='submit']{
   cursor: pointer;
 }
 
-.cancel{
+.cancel {
   background-color: red;
   color: white;
   border: none;
@@ -119,82 +169,208 @@ button[type='submit']{
   cursor: pointer;
 }
 
-.modal-heading{
-  color: white;
+.modal-heading {
+  color: black;
 }
 
-.cancel_icon{
+.cancel_icon {
   position: absolute;
   right: 30px;
   font-size: 20px;
+  cursor: pointer;
 }
 
-.edit_icon{
-  padding: 20px;
+.view_icon{
+  padding-right: 20px;
 }
-.notes_content{
+
+.edit_icon {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.notes_content {
   font-size: 18px;
 }
 
-.add_notes_heading{
+.add_notes_heading {
   margin: 0 auto;
+  text-align: center;
+}
+
+.opt{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 300px;
+  width: 270px;
   margin: 20px;
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
-  background-color: #F0FFFF;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
 .container {
   padding: 2px 16px;
 }
 
-.card-Container{
+.card-Container {
   display: flex;
+  margin: 0px auto;
   flex-wrap: wrap;
+  width: 99%;
   align-items: flex-start;
+  justify-content: flex-start;
 }
 
-.search{
+.search {
   position: absolute;
   right: 4rem;
   top: 28px;
+  display: flex;
+  align-items: center;
 }
 
-.close_search{
+.container p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.close_search {
+  position: absolute;
+  right: 1rem;
   font-size: 22px;
-  color: white;
+  color: black;
   padding: 5px;
+  cursor: pointer;
 }
 
-.time_date{
+.time_date {
   font-size: 12px;
   float: right;
-  padding-bottom : 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
   margin: 0px;
 }
 
-.search_input{
+.search_input {
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
   width: 200px;
+  outline: none;
+  border: 1px solid #ccc;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
 }
 
-.ui_plus_button{
+.ui_plus_button {
   width: 30px;
-  padding: 0 auto;
-  margin-left: 10px;
   height: 30px;
   background-color: #3C81C5;
   border-radius: 50%;
   border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+
+.ui_plus_button:hover {
+  background-color: #2b6ca8;
+}
+
+.ui_plus_button i {
+  color: white;
+  margin: 0 auto;
+}
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  .card-Container {
+    justify-content: flex-start;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .modal-back {
+    width: 100%;
+  }
+
+  .modal-content {
+    max-width: 100%;
+  }
+}
+
+.overlay{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
+.title-word {
+  animation: color-animation 4s linear infinite;
+}
+
+.title-word-1 {
+  --color-1: #DF8453;
+  --color-2: #3D8DAE;
+  --color-3: #E4A9A8;
+}
+
+.title-word-2 {
+  --color-1: #DBAD4A;
+  --color-2: #ACCFCB;
+  --color-3: #17494D;
+}
+
+.title-word-3 {
+  --color-1: #ACCFCB;
+  --color-2: #E4A9A8;
+  --color-3: #ACCFCB;
+}
+
+.title-word-4 {
+  --color-1: #3D8DAE;
+  --color-2: #DF8453;
+  --color-3: #E4A9A8;
+}
+
+@keyframes color-animation {
+  0%    {color: var(--color-1)}
+  32%   {color: var(--color-1)}
+  33%   {color: var(--color-2)}
+  65%   {color: var(--color-2)}
+  66%   {color: var(--color-3)}
+  99%   {color: var(--color-3)}
+  100%  {color: var(--color-1)}
+}
+
+/* Here are just some visual styles. 🖌 */
+
+.container {
+  display: grid;
+}
+
+.button_p{
+  margin: 0 auto;
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 18px;
 }

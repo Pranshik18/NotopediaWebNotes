@@ -112,7 +112,7 @@ function HomePage() {
         />
       </div>
       {/* Sorting filters  */}
-      <SortBy sortBy={sortBy} setSortBy={ setSortBy} />
+      <SortBy sortBy={sortBy} setSortBy={setSortBy} />
       <div>
         <button className="fab" onClick={handleButtonClick}>
           <i className="fa-sharp fa-solid fa-plus fa-beat"></i>
